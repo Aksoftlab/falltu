@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Customer Visit Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    html, body, #map { height: 100%; margin: 0; padding: 0; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    var map = L.map('map').setView([28.6755, 79.4199], 12);
+
+    // Google-style tiles via MapTiler (No API key)
+    L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Get_Your_Free_Key', {
+      attribution: '&copy; <a href="https://www.maptiler.com/">MapTiler</a>',
+      tileSize: 512,
+      zoomOffset: -1
+    }).addTo(map);
+
+    // Multiple markers - ग्राहक की विज़िट
+    var customers = [
+      {name: "कस्टमर 1", lat: 28.6755, lng: 79.4199},
+      {name: "कस्टमर 2", lat: 28.6830, lng: 79.4299},
+      {name: "कस्टमर 3", lat: 28.6700, lng: 79.4000}
+    ];
+
+    customers.forEach(function(c) {
+      L.marker([c.lat, c.lng]).addTo(map).bindPopup(c.name);
+    });
+  </script>
+</body>
+</html>
